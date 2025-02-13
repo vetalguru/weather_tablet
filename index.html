@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Погода и Дорога</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="left-panel">
+        <div class="date-time">
+            <div id="date" class="date">--</div>
+            <div id="clock" class="clock">--:--</div>
+        </div>
+        <div class="weather-info">
+            <div class="weather-icon-info-container">
+                <div class="weather-icon-block">
+                    <img id="weather-icon" src="" alt="Погода">
+                </div>
+                <div class="temp-block">
+                    <img class="temp-image" src="images/temperature.png" alt="ощущается как">
+                    <span class="temp-symbol">t: </span>
+                    <span id="feels_like">--</span><span class="temp-symbol">°C</span>
+                </div>
+            </div>
+
+            <p><span id="description">--</span></p>
+            <p>Влажность: <span id="humidity">--</span>%</p>
+
+            <div class="sun-wind-container">
+                <div class="sun-block">
+                    <p>
+                        <img class="sunrise-image" src="images/sun/sunrise.png" alt="восход"> Восход: <span id="sunrise">--</span>
+                    </p>
+                    <p>
+                        <img class="sunset-image" src="images/sun/sunset.png" alt="закат"> Закат: <span id="sunset">--</span>
+                    </p>
+                </div>
+
+                <div class="wind-block">
+                    <div class="wind-info">
+                        <p>
+                            <img class="wind-image" src="images/wind/wind.png" atl="ветер"> Ветер: <span id="wind-speed">--</span> м/с
+                        </p>
+                        <p>
+                            <img class="wind-image" src="images/wind/wind.png" atl="порывы"> Порывы: <span id="wind-gust">--</span> м/с
+                        </p>
+                    </div>
+                    <div class="wind-arrow-container">
+                        <span id="wind-arrow">⬆</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-panel">
+        <div class="map-container">
+            <iframe id="map1" src="YOUR LINK (google maps -> menu - > link/code)>" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="map-container">
+            <iframe id="map2" src="<YOUR LINK (google maps -> menu - > link/code)>" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
