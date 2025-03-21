@@ -1,67 +1,392 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <title>Weather Info Panel</title>
     <meta charset="UTF-8">
+    <meta name="description" content="Info panel for weather and traffic jam">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="Vitalii Shkibtan">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Погода и Дорога</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            display: flex;
+            background: black;
+            color: white;
+            transition: background 1s ease-in-out;
+            justify-content: center;
+
+            width: 900px;
+            height: 600px;
+            overflow: hidden;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 15px;
+            display: block;
+        }
+
+        #info-panel {
+            width: 45%;
+            background: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px;
+            text-align: center;
+            position: relative;
+            transition: background 1s ease-in-out;
+        }
+
+        #map-panel {
+            width: 55%;
+            display: flex;
+            flex-direction: column;
+            padding: 5px;
+            transition: background 1s ease-in-out;
+        }
+
+        .date-time {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .date {
+            font-size: 24px;
+            text-align: left;
+            margin-top: 5px;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .clock {
+            font-size: 180px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .weather-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .weather-icon-info-container {
+            height: 80px;
+            max-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .weather-icon-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .weather-icon {
+            width: 200px;
+            height: 200px;
+        }
+
+        .temp-block {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .temp-image {
+            width: 40px;
+            height: auto;
+        }
+
+        .temp-symbol {
+            font-size: 42px;
+            font-weight: bold;
+            padding-right: 5px;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .temp-degree {
+            font-size:42px;
+            font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #feels-like-data {
+            font-size: 42px;
+            font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #description-data {
+            font-size: 66px;
+            margin: 0;
+            padding: 0;
+            font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .humidity-container {
+            padding-top: 15px;
+        }
+
+        .humidity-image {
+            width: 30px;
+            height: auto;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .humidity-label {
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .sun-wind-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+            white-space: nowrap;
+            padding-top: 40px;
+        }
+
+        .sun-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .sun-block p {
+            line-height: 1;
+            margin: 2px 0;
+            padding: 0;
+            font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .sunrise-image, .sunset-image, .wind-image {
+            width: 20px;
+            height: auto;
+        }
+
+        .wind-block {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 55%;
+            flex-shrink: 0;
+        }
+
+        .wind-block p {
+            line-height: 1;
+            margin: 2px 0;
+            padding: 0;
+            font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .wind-info {
+            display: flex;
+            flex-direction: column;
+            width: 70%;
+        }
+
+        .wind-arrow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 30%;
+            height: 100%;
+            font-size: 2rem;
+            margin-left: 30px;
+        }
+
+        .map-container {
+            flex: 1;
+            margin: 5px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+    </style>
 </head>
-<body>
-    <div class="left-panel">
+<body onload="updateBackground();">
+    <div id="info-panel">
         <div class="date-time">
-            <div id="date" class="date">--</div>
-            <div id="clock" class="clock">--:--</div>
+            <div id="date-data" class="date">--</div>
+            <div id="clock-data" class="clock">--:--</div>
         </div>
         <div class="weather-info">
             <div class="weather-icon-info-container">
                 <div class="weather-icon-block">
-                    <img id="weather-icon" src="" alt="Погода">
+                    <img id="weather-icon-data" src="" alt="Погода">
                 </div>
                 <div class="temp-block">
-                    <img class="temp-image" src="images/temperature.png" alt="ощущается как">
-                    <span class="temp-symbol">t: </span>
-                    <span id="feels_like">--</span><span class="temp-symbol">°C</span>
+                    <img class="temp-image" src="https://openmoji.org/data/color/svg/1F321.svg" alt="ощущается как">
+                    <span class="temp-symbol">t </span>
+                    <span id="feels-like-data">--</span><span class="temp-degree">°C</span>
                 </div>
             </div>
 
-            <p><span id="description">--</span></p>
-            <p>Влажность: <span id="humidity">--</span>%</p>
+            <div class="description-container">
+                <p><span id="description-data">--</span></p>
+            </div>
+
+            <div class="humidity-container">
+                <p class="humidity-label">
+                    <img class="humidity-image" src="https://openmoji.org/data/color/svg/1F4A7.svg" alt="Влажность">
+                    Влажность: <span id="humidity-data">--</span>%
+                </p>
+            </div>
 
             <div class="sun-wind-container">
                 <div class="sun-block">
                     <p>
-                        <img class="sunrise-image" src="images/sun/sunrise.png" alt="восход"> Восход: <span id="sunrise">--</span>
+                        <img class="sunrise-image" src="https://openmoji.org/data/color/svg/1F304.svg" alt="восход"> Восход: <span id="sunrise-data">--</span>
                     </p>
                     <p>
-                        <img class="sunset-image" src="images/sun/sunset.png" alt="закат"> Закат: <span id="sunset">--</span>
+                        <img class="sunset-image" src="https://openmoji.org/data/color/svg/1F307.svg" alt="закат"> Закат: <span id="sunset-data">--</span>
                     </p>
                 </div>
 
                 <div class="wind-block">
                     <div class="wind-info">
                         <p>
-                            <img class="wind-image" src="images/wind/wind.png" atl="ветер"> Ветер: <span id="wind-speed">--</span> м/с
+                            <img class="wind-image" src="https://openmoji.org/data/color/svg/1F32C.svg" alt="ветер"> Ветер: <span id="wind-speed-data">--</span> м/с
                         </p>
                         <p>
-                            <img class="wind-image" src="images/wind/wind.png" atl="порывы"> Порывы: <span id="wind-gust">--</span> м/с
+                            <img class="wind-image" src="https://openmoji.org/data/color/svg/1F4A8.svg" alt="порывы"> Порывы: <span id="wind-gust-data">--</span> м/с
                         </p>
                     </div>
                     <div class="wind-arrow-container">
-                        <span id="wind-arrow">⬆</span>
+                        <span id="wind-arrow-data">⬆</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="right-panel">
+    <div id="map-panel">
         <div class="map-container">
-            <iframe id="map1" src="YOUR LINK (google maps -> menu - > link/code)>" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe id="natali-map" src="https://www.google.com/maps/embed?pb=!1m24!1m8!1m3!1d8953.871895539669!2d30.555116957175652!3d50.40572638246401!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x40d4e83ae4043685%3A0xdc9a6a7496f20b68!2z0JrQsNC90YLRgNGWINCl0LDRg9GB!3m2!1d50.3608778!2d30.8509341!4m5!1s0x40d4cfded50d5d7f%3A0x35679271bd82ca91!2zSEVSWiDQo9C60YDQsNGX0L3QsCwg0LLRg9C70LjRhtGPINCc0LjRhdCw0LnQu9CwINCR0L7QudGH0YPQutCwLCA0MS3QkSwg0JrQuNGX0LIsIDAxMTAz!3m2!1d50.405319899999995!2d30.552789899999997!5e0!3m2!1sru!2sua!4v1739442673727!5m2!1sru!2sua&theme=dark" width="100%" height="100%" style="border:5px solid #494945; border-radius: 15px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div style="position: absolute; top: 2px; right: 30px; width: 70px; height: 30px; background-color: black; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 5px;">NATALI</div>
         </div>
         <div class="map-container">
-            <iframe id="map2" src="<YOUR LINK (google maps -> menu - > link/code)>" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe id="vitalii-map" src="https://www.google.com/maps/embed?pb=!1m24!1m8!1m3!1d47107.92770294271!2d30.57204856873018!3d50.381665144852455!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x40d4e83ae4043685%3A0xdc9a6a7496f20b68!2z0JrQsNC90YLRgNGWINCl0LDRg9GB!3m2!1d50.3608778!2d30.8509341!4m5!1s0x40d4cf18a9ae4b25%3A0x2e1493e378e6a3fe!2zR2xvYmFsTG9naWMgVWtyYWluZSwg0LLRg9C70LjRhtGPINCc0LjQutC-0LvQuCDQk9GA0ZbQvdGH0LXQvdC60LAsIDIvMSwg0JrQuNGX0LIsIDAzNjgw!3m2!1d50.4247379!2d30.506306!5e0!3m2!1sru!2sua!4v1739443230520!5m2!1sru!2sua" width="600" height="450" style="border:5px solid #494945; border-radius: 15px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div style="position: absolute; bottom: 2px; right: 30px; width: 70px; height: 30px; background-color: black; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 5px;">VITALII</div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const API_KEY = '5274757246726b616df843eb8116b54d';
+        const CITY = 'Kyiv,ua';
+        const URL = `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&lang=ru&units=metric&appid=${API_KEY}`;
+
+        function getWindArrow(deg) {
+            const arrows = ["⬆", "↗", "➡", "↘", "⬇", "↙", "⬅", "↖"];
+            return arrows[Math.floor((deg + 22.5) / 45) % 8];
+        }
+
+        function formatTime(utcSeconds, timezoneOffset) {
+            const date = new Date((utcSeconds + timezoneOffset) * 1000);
+            return date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function hPaToMmHg(hPa) {
+            return (hPa * 0.75006).toFixed(1);
+        }
+
+        async function fetchWeather() {
+            try {
+                const response = await fetch(URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+                const data = await response.json();
+
+                document.getElementById('description-data').innerText = data.weather[0].description;
+                document.getElementById('feels-like-data').innerText = data.main.feels_like.toFixed(1);
+                document.getElementById('humidity-data').innerText = data.main.humidity;
+
+                const iconCode = data.weather[0].icon;
+                document.getElementById('weather-icon-data').src = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
+
+                // Wind
+                document.getElementById('wind-speed-data').innerText = data.wind.speed;
+                document.getElementById('wind-arrow-data').innerText = getWindArrow(data.wind.deg);
+                document.getElementById('wind-gust-data').innerText = data.wind.gust ? data.wind.gust.toFixed(1) : "—";
+
+                // Sun
+                document.getElementById('sunrise-data').innerText = formatTime(data.sys.sunrise, data.timezone);
+                document.getElementById('sunset-data').innerText = formatTime(data.sys.sunset, data.timezone);
+
+            } catch (error) {
+                const errorText = `Unable to load the weather: ${error.message}`;
+                alert(errorText);
+                console.error(errorText);
+
+                document.getElementById('description-data').innerText = "Unable to load data";
+            }
+        }
+
+        function updateClock() {
+            const now = new Date();
+
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock-data').innerText = `${hours}:${minutes}`;
+
+            const options = { weekday: 'long', day: 'numeric', month: 'long' };
+            const formattedDate = now.toLocaleDateString('ru-RU', options);
+            document.getElementById('date-data').innerText = formattedDate;
+        }
+
+        function updateBackground() {
+            const hour = new Date().getHours();
+            let bgColor;
+
+            if (hour >= 6 && hour < 12) {
+                bgColor = 'linear-gradient(to bottom, #87CEEB, #FFD700)'; // Утро (голубой-желтый)
+            } else if (hour >= 12 && hour < 18) {
+                bgColor = 'linear-gradient(to bottom, #4682B4, #FFA500)'; // День (синий-оранжевый)
+            } else if (hour >= 18 && hour < 22) {
+                bgColor = 'linear-gradient(to bottom, #191970, #FF4500)'; // Вечер (темно-синий-красный)
+            } else {
+                bgColor = 'linear-gradient(to bottom, #000000, #191970)'; // Ночь (черный-темно-синий)
+            }
+
+            document.body.style.background = bgColor;
+        }
+
+        // Update timers settings
+        setInterval(fetchWeather, 900000); // every 15 minutes
+        setInterval(updateBackground, 600000); // every 10 minutes
+        setInterval(updateClock, 30000);      // every 30 seconds
+
+        // Start on page load
+        fetchWeather();
+        updateClock();
+        updateBackground();
+    </script>
 </body>
 </html>
