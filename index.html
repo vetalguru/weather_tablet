@@ -362,20 +362,35 @@
         }
 
         function updateBackground() {
+            const gradients = [
+                'linear-gradient(to bottom, #030307, #020206, #000000)', // 0 - 1
+                'linear-gradient(to bottom, #0a0a13, #080809, #030307)', // 1 - 2
+                'linear-gradient(to bottom, #050517, #030314, #0a0a13)', // 2 - 3
+                'linear-gradient(to bottom, #0a0a23, #080803, #050517)', // 3 - 4
+                'linear-gradient(to bottom, #191970, #151550, #0a0a23)', // 4 - 5
+                'linear-gradient(to bottom, #4682B4, #a06010, #191970)', // 5 - 6
+                'linear-gradient(to bottom, #191970, #4169E1, #F5AF19)', // 6 - 7
+                'linear-gradient(to bottom, #4682B4, #53BDB4, #FFA500)', // 7 - 8
+                'linear-gradient(to bottom, #FFA500, #53BDB4, #4682B4)', // 8 - 9
+                'linear-gradient(to bottom, #FFA500, #53BDB4, #008CFF)', // 9 - 10
+                'linear-gradient(to bottom, #FF8C00, #53BDB4, #1C42FF)', // 10 - 11
+                'linear-gradient(to bottom, #FF8C00, #22A3C7, #1C42FF)', // 11 - 12
+                'linear-gradient(to bottom, #FF8C00, #6495ED, #6495ED)', // 12 - 13
+                'linear-gradient(to bottom, #FF8C00, #6495ED, #6495ED)', // 13 - 14
+                'linear-gradient(to bottom, #FF8C00, #1E90FF)', // 14 - 15
+                'linear-gradient(to bottom, #FF8C00, #1E90FF)', // 15 - 16
+                'linear-gradient(to bottom, #FF8400, #B39422, #005CF0)', // 16 - 17
+                'linear-gradient(to bottom, #0C56CC, #FFA200, #FF5100)', // 17 - 18
+                'linear-gradient(to bottom, #0C56CC, #FFA200, #FF5100)', // 18 - 19
+                'linear-gradient(to bottom, #0C56CC, #FFA200, #FF5100)', // 19 - 20
+                'linear-gradient(to bottom, #0C56CC, #A67829, #FF5100)', // 20 - 21
+                'linear-gradient(to bottom, #191950, #4141A3, #884500)', // 21 - 22
+                'linear-gradient(to bottom, #191950, #131330, #090920)', // 22 - 23
+                'linear-gradient(to bottom, #090920, #070720, #000000)', // 23 - 24
+            ];
+
             const hour = new Date().getHours();
-            let bgColor;
-
-            if (hour >= 6 && hour < 12) {
-                bgColor = 'linear-gradient(to bottom, #87CEEB, #FFD700)'; // Утро (голубой-желтый)
-            } else if (hour >= 12 && hour < 18) {
-                bgColor = 'linear-gradient(to bottom, #4682B4, #FFA500)'; // День (синий-оранжевый)
-            } else if (hour >= 18 && hour < 22) {
-                bgColor = 'linear-gradient(to bottom, #191970, #FF4500)'; // Вечер (темно-синий-красный)
-            } else {
-                bgColor = 'linear-gradient(to bottom, #000000, #191970)'; // Ночь (черный-темно-синий)
-            }
-
-            document.body.style.background = bgColor;
+            document.body.style.background = gradients[hour];
         }
 
         // Update timers settings
