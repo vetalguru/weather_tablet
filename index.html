@@ -128,8 +128,9 @@
     <script>
         // Settings and constants
         // OpenWeatherMap API key and city
-        const API_KEY = '5274757246726b616df843eb8116b54d';  // This just because of stupid mac tablet,
-                                                             // which doesn't allow to use local files
+        const encoded_key = 'NTI3NDc1NzI0NjcyNmI2MTZkZjg0M2ViODExNmI1NGQ=';
+        const API_KEY = atob(encoded_key);  // This just because of stupid mac tablet,
+                                            // which doesn't allow to use local files
         const CITY = 'Kyiv,ua';
         const URL = `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&lang=ru&units=metric&appid=${API_KEY}`;
 
