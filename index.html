@@ -8,227 +8,47 @@
     <meta name="author" content="Vitalii Shkibtan">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        body{
-            display: flex;
-            background: black;
-            color: white;
-            transition: background 1s ease-in-out;
-            justify-content: center;
-
-            width: 900px;
-            height: 600px;
-            overflow: hidden;
-        }
-
-        html, body {
-            height: 100%;
-            width: 100%;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 15px;
-            display: block;
-        }
-
-        #info-panel {
-            width: 45%;
-            background: inherit;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 5px;
-            text-align: center;
-            position: relative;
-            transition: background 1s ease-in-out;
-        }
-
-        #map-panel {
-            width: 55%;
-            display: flex;
-            flex-direction: column;
-            padding: 5px;
-            transition: background 1s ease-in-out;
-        }
-
-        .date-time {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .date {
-            font-size: 24px;
-            text-align: left;
-            margin-top: 5px;
-            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .clock {
-            font-size: 180px;
-            font-weight: bold;
-            margin-bottom: 5px;
-            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .weather-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .weather-icon-info-container {
-            height: 80px;
-            max-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-        }
-
-        .weather-icon-block {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-        }
-
-        .weather-icon {
-            width: 200px;
-            height: 200px;
-        }
-
-        .temp-block {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-
-        .temp-image {
-            width: 40px;
-            height: auto;
-        }
-
-        .temp-symbol {
-            font-size: 42px;
-            font-weight: bold;
-            padding-right: 5px;
-            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .temp-degree {
-            font-size:42px;
-            font-weight: bold;
-            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        #feels-like-data {
-            font-size: 42px;
-            font-weight: bold;
-            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        #description-data {
-            font-size: 66px;
-            margin: 0;
-            padding: 0;
-            font-weight: bold;
-            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .humidity-container {
-            padding-top: 15px;
-        }
-
-        .humidity-image {
-            width: 30px;
-            height: auto;
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .humidity-label {
-            font-size: 32px;
-            font-weight: bold;
-            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .sun-wind-container {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            align-items: center;
-            white-space: nowrap;
-            padding-top: 40px;
-        }
-
-        .sun-block {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            text-align: left;
-        }
-
-        .sun-block p {
-            line-height: 1;
-            margin: 2px 0;
-            padding: 0;
-            font-weight: bold;
-            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .sunrise-image, .sunset-image, .wind-image {
-            width: 20px;
-            height: auto;
-        }
-
-        .wind-block {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 55%;
-            flex-shrink: 0;
-        }
-
-        .wind-block p {
-            line-height: 1;
-            margin: 2px 0;
-            padding: 0;
-            font-weight: bold;
-            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
-        }
-
-        .wind-info {
-            display: flex;
-            flex-direction: column;
-            width: 70%;
-        }
-
-        .wind-arrow-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 30%;
-            height: 100%;
-            font-size: 2rem;
-            margin-left: 30px;
-        }
-
-        .map-container {
-            flex: 1;
-            margin: 5px;
-            border-radius: 15px;
-            overflow: hidden;
-        }
+        * { margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif;}
+        body { display: flex; background: black; color: white; transition: background 1s ease-in-out;
+            justify-content: center; width: 900px; height: 600px;overflow: hidden; }
+        html, body { height: 100%; width: 100%; }
+        iframe { width: 100%; height: 100%; border: none; border-radius: 15px; display: block; }
+        #info-panel { width: 45%; background: inherit; display: flex; flex-direction: column; align-items: center;
+            padding: 5px; text-align: center; position: relative; transition: background 1s ease-in-out; }
+        #map-panel { width: 55%; display: flex; flex-direction: column; padding: 5px;
+            transition: background 1s ease-in-out; }
+        .date-time { display: flex; flex-direction: column; align-items: center; margin-bottom: 10px; }
+        .date { font-size: 24px; text-align: left; margin-top: 5px; text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); }
+        .clock { font-size: 180px; font-weight: bold; margin-bottom: 5px; text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);}
+        .weather-info { display: flex; flex-direction: column; align-items: center; }
+        .weather-icon-info-container { height: 80px; max-height: 80px; display: flex; align-items: center;
+            justify-content: center;padding: 0; }
+        .weather-icon-block { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
+        .weather-icon { width: 200px; height: 200px; }
+        .temp-block { display: flex; align-items: center; gap: 3px; }
+        .temp-image { width: 40px; height: auto; }
+        .temp-symbol { font-size: 42px; font-weight: bold; padding-right: 5px;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); }
+        .temp-degree { font-size:42px; font-weight: bold; text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); }
+        #feels-like-data { font-size: 42px; font-weight: bold; text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); }
+        #description-data { font-size: 66px; margin: 0; padding: 0; font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); }
+        .humidity-container { padding-top: 15px; }
+        .humidity-image { width: 30px; height: auto; display: inline-block; vertical-align: middle; }
+        .humidity-label { font-size: 32px; font-weight: bold; text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); }
+        .sun-wind-container { display: flex; justify-content: space-between; width: 100%; align-items: center;
+            white-space: nowrap; padding-top: 40px; }
+        .sun-block { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
+        .sun-block p { line-height: 1; margin: 2px 0; padding: 0; font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); }
+        .sunrise-image, .sunset-image, .wind-image { width: 20px; height: auto; }
+        .wind-block { display: flex; justify-content: space-between; align-items: center; width: 55%; flex-shrink: 0; }
+        .wind-block p { line-height: 1; margin: 2px 0; padding: 0; font-weight: bold;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5); }
+        .wind-info { display: flex; flex-direction: column; width: 70%; }
+        .wind-arrow-container { display: flex; align-items: center; justify-content: center; width: 30%; height: 100%;
+            font-size: 2rem; margin-left: 30px; }
+        .map-container { flex: 1; margin: 5px; border-radius: 15px; overflow: hidden; }
     </style>
 </head>
 <body onload="updateBackground();">
@@ -288,20 +108,39 @@
     </div>
     <div id="map-panel">
         <div class="map-container">
-            <iframe id="natali-map" src="https://www.google.com/maps/embed?pb=!1m24!1m8!1m3!1d8953.871895539669!2d30.555116957175652!3d50.40572638246401!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x40d4e83ae4043685%3A0xdc9a6a7496f20b68!2z0JrQsNC90YLRgNGWINCl0LDRg9GB!3m2!1d50.3608778!2d30.8509341!4m5!1s0x40d4cfded50d5d7f%3A0x35679271bd82ca91!2zSEVSWiDQo9C60YDQsNGX0L3QsCwg0LLRg9C70LjRhtGPINCc0LjRhdCw0LnQu9CwINCR0L7QudGH0YPQutCwLCA0MS3QkSwg0JrQuNGX0LIsIDAxMTAz!3m2!1d50.405319899999995!2d30.552789899999997!5e0!3m2!1sru!2sua!4v1739442673727!5m2!1sru!2sua&theme=dark" width="100%" height="100%" style="border:5px solid #494945; border-radius: 15px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe id="natalii-map" width="100%" height="100%" style="border:5px solid #494945; border-radius: 15px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <script>
+                const n_encoded = 'aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9tYXBzL2VtYmVkP3BiPSExbTI0ITFtOCExbTMhMWQ4OTUzLjg3MTg5NTUzOTY2OSEyZDMwLjU1NTExNjk1NzE3NTY1ITNkNTAuNDA1NzI2MzgyNDY0MDEhM20yITFpMTAyNCEyaTc2OCExNGYxMy4xITRtMTMhM2U2ITRtNSExczB4NDBkNGU4M2FlNDA0MzY4NSUzQTB4ZGM5YTZhNzQ5NmYyMGI2OCEyJXowSnJRc05DOTBZTFJnTkdXSU5DbDBsMERSZzlHQiEzZzIhMWQ1MC4zNjA4Nzc4ITJkMzAuODUwOTM0MSE0bTUhMXMweDQwZDRjZmRlZDUwZDVkN2YlM0EweDM1Njc5MjcxYmQ4MmNhOTEhMnoxRUVTWiUyMERRbTlDNjBZRFFzTkdYMEx3UXNnMExMUmc5QzcwTGpSaHRHUFB1dEN3TCUyQyUyMDRNMS1Ra3clMkMlMjAwSnJRdU5HWE9JcyUyQyUyMDAxTUFUMyEzZzIhMWQ1MC40MDUzMTk4OTk5OTk5OTk1ITJkMzAuNTUyNzg5ODk5OTk5OTk5OTchNWUwITNtMiExc3J1ITJzdWEhNHYxNzM5NDQyNjczNzI3ITVtMiFzcnUhMnN1YQ==';
+                document.getElementById('natalii-map').src = atob(n_encoded);
+            </script>
             <div style="position: absolute; top: 2px; right: 30px; width: 70px; height: 30px; background-color: black; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 5px;">NATALI</div>
         </div>
         <div class="map-container">
-            <iframe id="vitalii-map" src="https://www.google.com/maps/embed?pb=!1m24!1m8!1m3!1d47107.92770294271!2d30.57204856873018!3d50.381665144852455!3m2!1i1024!2i768!4f13.1!4m13!3e6!4m5!1s0x40d4e83ae4043685%3A0xdc9a6a7496f20b68!2z0JrQsNC90YLRgNGWINCl0LDRg9GB!3m2!1d50.3608778!2d30.8509341!4m5!1s0x40d4cf18a9ae4b25%3A0x2e1493e378e6a3fe!2zR2xvYmFsTG9naWMgVWtyYWluZSwg0LLRg9C70LjRhtGPINCc0LjQutC-0LvQuCDQk9GA0ZbQvdGH0LXQvdC60LAsIDIvMSwg0JrQuNGX0LIsIDAzNjgw!3m2!1d50.4247379!2d30.506306!5e0!3m2!1sru!2sua!4v1739443230520!5m2!1sru!2sua" width="600" height="450" style="border:5px solid #494945; border-radius: 15px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe id="vitalii-map" width="600" height="450" style="border:5px solid #494945; border-radius: 15px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <script>
+                const v_encoded = 'aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9tYXBzL2VtYmVkP3BiPSExbTI0ITFtOCExbTMhMWQ0NzEwNy45Mjc3MDI5NDI3MSEyZDMwLjU3MjA0ODU2ODczMDE4ITNkNTAuMzgxNjY1MTQ0ODUyNDU1ITNtMiExaTEwMjQhMmk3NjghNGYxMy4xITRtMTMhM2U2ITRtNSExczB4NDBkNGU4M2FlNDA0MzY4NSUzQTB4ZGM5YTZhNzQ5NmYyMGI2OCEyejBKclFzTkM5MFlMUmdOR1dJTkNsMExEUmc5R0IhM20yITFkNTAuMzYwODc3OCEyZDMwLjg1MDkzNDEhNG01ITFzMHg0MGQ0Y2YxOGE5YWU0YjI1JTNBMHgyZTE0OTNlMzc4ZTZhM2ZlITJ6UjJ4dlltRnNURzluYVdNZ1ZXdHlZV2x1WlN3ZzBMTFJnOUM3MExqUmh0R1BJTkNjMExqUXV0Qy0wTHZRdUNEUWs5R0EwWmJRdmRHSDBMWFF2ZEM2MExBc0lESXZNU3dnMEpyUXVOR1gwTElzSURBek5qZ3chM20yITFkNTAuNDI0NzM3OSEyZDMwLjUwNjMwNiE1ZTAhM20yITFzcnUhMnN1YSE0djE3Mzk0NDMyMzA1MjAhNW0yITFzcnUhMnN1YQ==';
+                document.getElementById('vitalii-map').src = atob(v_encoded);
+            </script>
             <div style="position: absolute; bottom: 2px; right: 30px; width: 70px; height: 30px; background-color: black; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; border-radius: 5px;">VITALII</div>
         </div>
     </div>
 
     <script>
-        const API_KEY = '5274757246726b616df843eb8116b54d';
+        // Settings and constants
+        // OpenWeatherMap API key and city
+        const API_KEY = '5274757246726b616df843eb8116b54d';  // This just because of stupid mac tablet,
+                                                             // which doesn't allow to use local files
         const CITY = 'Kyiv,ua';
         const URL = `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&lang=ru&units=metric&appid=${API_KEY}`;
 
+        // Overlay settings
+        const NIGHT_OVERLAY_ID = 'night-overlay';
+        const NIGHT_OVERLAY_TIMEOUT = 2 * 60 * 1000; // 2 minutes
+        const NIGHT_HOURS = [23, 0, 1, 2, 3, 4, 5]; // Hours when night overlay is active
+        const NIGHT_BACKGROUND_COLOR = 'rgba(0, 0, 0, 0.7)';
+
+        //--------------------------------------------------------
+        // Weather functions
         function getWindArrow(deg) {
             const arrows = ["⬆", "↗", "➡", "↘", "⬇", "↙", "⬅", "↖"];
             return arrows[Math.floor((deg + 22.5) / 45) % 8];
@@ -361,6 +200,8 @@
             document.getElementById('date-data').innerText = formattedDate;
         }
 
+        //-------------------------------------------------------
+        // Update background based on the time of day
         function updateBackground() {
             const gradients = [
                 'linear-gradient(to bottom, #030307, #020206, #000000)', // 0 - 1
@@ -393,15 +234,61 @@
             document.body.style.background = gradients[hour];
         }
 
+        //-------------------------------------------------------
+        // Create and manage night overlay
+        let nightOverlayTimeout = null;
+        function showNightOverlay() {
+            if (!document.getElementById(NIGHT_OVERLAY_ID)) {
+                const overlay = document.createElement('div');
+                overlay.id = NIGHT_OVERLAY_ID;
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.width = '100vw';
+                overlay.style.height = '100vh';
+                overlay.style.background = NIGHT_BACKGROUND_COLOR;
+                overlay.style.zIndex = '9999';
+                overlay.style.pointerEvents = 'auto';
+                overlay.title = 'Click to remove overlay';
+                overlay.onclick = function () {
+                    hideNightOverlay();
+                    if (nightOverlayTimeout) clearTimeout(nightOverlayTimeout);
+                    nightOverlayTimeout = setTimeout(showNightOverlay, NIGHT_OVERLAY_TIMEOUT);
+                };
+                document.body.appendChild(overlay);
+            }
+        }
+
+        function hideNightOverlay() {
+            const overlay = document.getElementById(NIGHT_OVERLAY_ID);
+            if (overlay) { overlay.remove(); }
+        }
+
+        // Update night overlay based on time
+        function updateNightOverlay() {
+            const hour = new Date().getHours();
+            if (NIGHT_HOURS.includes(hour)) { showNightOverlay();
+            } else {
+                hideNightOverlay();
+                if (nightOverlayTimeout) {
+                    clearTimeout(nightOverlayTimeout);
+                    nightOverlayTimeout = null;
+                }
+            }
+        }
+
+        //------------------------------------------------------
         // Update timers settings
-        setInterval(fetchWeather, 900000); // every 15 minutes
-        setInterval(updateBackground, 600000); // every 10 minutes
-        setInterval(updateClock, 30000);      // every 30 seconds
+        setInterval(fetchWeather, 900000);       // every 15 minutes
+        setInterval(updateBackground, 600000);   // every 10 minutes
+        setInterval(updateClock, 30000);         // every 30 seconds
+        setInterval(updateNightOverlay, 60000); // every 1 minute
 
         // Start on page load
         fetchWeather();
         updateClock();
         updateBackground();
+        updateNightOverlay();
     </script>
 </body>
 </html>
